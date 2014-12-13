@@ -36,6 +36,7 @@ class LmsXBlockMixinTestCase(ModuleStoreTestCase):
         self.subsection = ItemFactory.create(parent=self.section, category='sequential', display_name='Test Subsection')
         self.vertical = ItemFactory.create(parent=self.subsection, category='vertical', display_name='Test Unit')
         self.video = ItemFactory.create(parent=self.vertical, category='video', display_name='Test Video 1')
+        # pylint: disable=attribute-defined-outside-init
 
 
 class XBlockValidationTest(LmsXBlockMixinTestCase):
@@ -43,7 +44,7 @@ class XBlockValidationTest(LmsXBlockMixinTestCase):
     Unit tests for XBlock validation
     """
     def setUp(self):
-        super(LmsXBlockMixinTestCase, self).setUp()
+        super(XBlockValidationTest, self).setUp()
         self.build_course()
 
     def verify_validation_message(self, message, expected_message, expected_message_type):
@@ -152,7 +153,6 @@ class XBlockGetParentTest(LmsXBlockMixinTestCase):
             # created with the correct modulestore type.
 
             if modulestore_type == 'xml':
-                # TODO (jsa) find out how to get to the toy xml course in here
                 course_key = self.store.make_course_key('edX', 'toy', '2012_Fall')
             else:
                 course_key = self.create_toy_course('edX', 'toy', '2012_Fall_copy')
